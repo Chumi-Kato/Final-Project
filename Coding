@@ -1,0 +1,25 @@
+library(ggplot2)
+
+setwd("~/Downloads/personality-study")
+
+p.data = read.csv("PersonalitySurvey.csv")
+
+#creating and trimming our datasets
+p.data$abbr = substr(p.data$Zodiac, 0, 3)
+e.data = subset(p.data, p.data$Extroverted=='4' | p.data$Extroverted=='5')
+i.data = subset(p.data, p.data$Introverted=='4' | p.data$Introverted=='5')
+
+#plot 1 tells us an overview of our sample, showing how many of each zodiac sign we have in our sample
+ggplot(p.data, aes(x = abbr)) + geom_bar(fill = "purple") +
+  labs(title = "Zodiac signs in our sample", x= "Zodiac Abbreviation", y= "Count") +
+  theme(plot.title = element_text(size=15, face="bold", color="black", hjust = 0.5))
+
+#plot 2 tells us how many of each zodiac sign is an extrovert (extroverted = 4 or 5)
+ggplot(e.data, aes(x = abbr)) + geom_bar(fill = "red") +
+  labs(title = "Extroverts by Zodiac Sign", x= "Zodiac Abbreviation", y= "Extrovert Level") +
+  theme(plot.title = element_text(size=15, face="bold", color="black", hjust = 0.5))
+
+#plot 3 tells us how many of each zodiac sign is an introvert (introverted = 4 or 5)
+ggplot(i.data, aes(x = abbr)) + geom_bar(fill = "blue") +
+  labs(title = "Introverts by Zodiac Sign", x= "Zodiac Abbreviation", y= "Introvert Level") +
+  theme(plot.title = element_text(size=15, face="bold", color="black", hjust = 0.5))
